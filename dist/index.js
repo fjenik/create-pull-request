@@ -43,6 +43,8 @@ function run() {
         const token = core.getInput('repo-token');
         const sourceBranch = core.getInput('source-branch');
         const targetBranch = core.getInput('target-branch');
+        const prTitle = core.getInput('pr-title');
+        const prBody = core.getInput('pr-body');
         const client = github.getOctokit(token);
         try {
             yield client.pulls.create({
@@ -50,8 +52,8 @@ function run() {
                 repo: github.context.repo.repo,
                 head: sourceBranch,
                 base: targetBranch,
-                title: `Merge ${sourceBranch} to ${targetBranch}`,
-                body: '',
+                title: prTitle,
+                body: prBody,
             });
         }
         catch (error) {

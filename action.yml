@@ -15,6 +15,14 @@ inputs:
     description: 'Target branch'
     required: false
     default: 'master'
+  pr-title:
+    description: 'Pull request title'
+    required: false
+    default: 'Merge master to develop'
+  pr-body:
+    description: 'Pull request body'
+    required: false
+    default: null
 
 
 runs:
