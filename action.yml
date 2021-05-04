@@ -1,0 +1,22 @@
+name: 'create-pull-request'
+description: 'Create pull request'
+author: 'Filip Jenik'
+icon: 'bookmark'
+color: 'yellow'
+inputs:
+  repo-token:
+    description: 'The GITHUB_TOKEN secret'
+    required: true
+  source-branch:
+    description: 'Source branch'
+    required: false
+    default: 'develop'
+  target-branch:
+    description: 'Target branch'
+    required: false
+    default: 'master'
+
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
