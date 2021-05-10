@@ -13,9 +13,6 @@ async function run() {
   const prAssignees = parseListInput(core.getInput('pr-assignees') ?? '')
   const prLabels = parseListInput(core.getInput('pr-labels') ?? '')
 
-
-  console.log('index (17)', core.getInput('pr-reviewers')) // REMOVE
-
   const client = github.getOctokit(token)
 
   try {
