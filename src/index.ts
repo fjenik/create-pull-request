@@ -63,9 +63,12 @@ async function run() {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         issue_number: pullNumber,
-        labels: prLabels.map((label) => ({
-          name: label
-        })) ?? []
+        ...(prLabels.length !== 0 &&
+        {
+          labels: prLabels.map((label) => ({
+            name: label
+          }))
+        })
       })
     } catch (error) {
       core.error(error)
