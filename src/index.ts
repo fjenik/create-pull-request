@@ -1,15 +1,17 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
 
+const parseListInput = (input: string) => input.split(',').map((item: string) => item.trim())
+
 async function run() {
   const token = core.getInput('repo-token')
   const sourceBranch = core.getInput('source-branch')
   const targetBranch = core.getInput('target-branch')
   const prTitle = core.getInput('pr-title')
   const prBody = core.getInput('pr-body')
-  const prReviewers = (core.getInput('pr-reviewers') ?? '').split(',')
-  const prAssignees = (core.getInput('pr-assignees') ?? '').split(',')
-  const prLabels = (core.getInput('pr-labels') ?? '').split(',')
+  const prReviewers = parseListInput(core.getInput('pr-reviewers') ?? '')
+  const prAssignees = parseListInput(core.getInput('pr-assignees') ?? '')
+  const prLabels = parseListInput(core.getInput('pr-labels') ?? '')
 
   const client = github.getOctokit(token)
 
