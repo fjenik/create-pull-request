@@ -38,18 +38,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
-const parseListInput = (input) => input.split(',').map((item) => item.trim());
+function getInputAsArray(name, options) {
+    return core
+        .getInput(name, options)
+        .split("\n")
+        .map(s => s.trim())
+        .filter(x => x !== "");
+}
 function run() {
-    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const token = core.getInput('repo-token');
         const sourceBranch = core.getInput('source-branch');
         const targetBranch = core.getInput('target-branch');
         const prTitle = core.getInput('pr-title');
         const prBody = core.getInput('pr-body');
-        const prReviewers = parseListInput((_a = core.getInput('pr-reviewers')) !== null && _a !== void 0 ? _a : '');
-        const prAssignees = parseListInput((_b = core.getInput('pr-assignees')) !== null && _b !== void 0 ? _b : '');
-        const prLabels = parseListInput((_c = core.getInput('pr-labels')) !== null && _c !== void 0 ? _c : '');
+        const prReviewers = getInputAsArray('pr-reviewers');
+        const prAssignees = getInputAsArray('pr-assignees');
+        const prLabels = getInputAsArray('pr-labels');
         const client = github.getOctokit(token);
         try {
             const pullRequest = yield client.pulls.create({

@@ -22,15 +22,15 @@ inputs:
     required: false
     default: null
   pr-reviewers:
-    description: "List of reviewers separated with a comma"
+    description: "List of reviewers"
     required: false
     default: null
   pr-assignees:
-    description: "List of assignees separated with a comma"
+    description: "List of assignees"
     required: false
     default: null
   pr-labels:
-    description: "List of labels separated with a comma"
+    description: "List of labels"
     required: false
     default: null
 
