@@ -88,18 +88,20 @@ function run() {
             catch (error) {
                 core.error(error);
             }
-            try {
-                yield client.issues.addLabels(Object.assign({ owner: github.context.repo.owner, repo: github.context.repo.repo, issue_number: pullNumber }, (prLabels.length !== 0 ?
-                    {
+            if (prLabels.length !== 0) {
+                try {
+                    yield client.issues.addLabels({
+                        owner: github.context.repo.owner,
+                        repo: github.context.repo.repo,
+                        issue_number: pullNumber,
                         labels: prLabels.map((label) => ({
                             name: label
                         }))
-                    } : {
-                    labels: undefined
-                })));
-            }
-            catch (error) {
-                core.error(error);
+                    });
+                }
+                catch (error) {
+                    core.error(error);
+                }
             }
         }
         catch (error) {
