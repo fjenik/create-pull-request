@@ -39,15 +39,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
 function run() {
+    var _a, _b, _c;
     return __awaiter(this, void 0, void 0, function* () {
         const token = core.getInput('repo-token');
         const sourceBranch = core.getInput('source-branch');
         const targetBranch = core.getInput('target-branch');
         const prTitle = core.getInput('pr-title');
         const prBody = core.getInput('pr-body');
+        const prReviewers = ((_a = core.getInput('pr-reviewers')) !== null && _a !== void 0 ? _a : '').split(',');
+        const prAssignees = ((_b = core.getInput('pr-assignees')) !== null && _b !== void 0 ? _b : '').split(',');
+        const prLabels = ((_c = core.getInput('pr-labels')) !== null && _c !== void 0 ? _c : '').split(',');
         const client = github.getOctokit(token);
         try {
-            yield client.pulls.create({
+            const pullRequest = yield client.pulls.create({
                 owner: github.context.repo.owner,
                 repo: github.context.repo.repo,
                 head: sourceBranch,
@@ -55,8 +59,43 @@ function run() {
                 title: prTitle,
                 body: prBody,
             });
+            const pullNumber = pullRequest.data.number;
+            try {
+                yield client.pulls.requestReviewers({
+                    owner: github.context.repo.owner,
+                    repo: github.context.repo.repo,
+                    pull_number: pullNumber,
+                    reviewers: prReviewers
+                });
+            }
+            catch (error) {
+                core.error(error);
+            }
+            try {
+                yield client.issues.addAssignees({
+                    owner: github.context.repo.owner,
+                    repo: github.context.repo.repo,
+                    issue_number: pullNumber,
+                    assignees: prAssignees
+                });
+            }
+            catch (error) {
+                core.error(error);
+            }
+            try {
+                yield client.issues.addLabels({
+                    owner: github.context.repo.owner,
+                    repo: github.context.repo.repo,
+                    issue_number: pullNumber,
+                    labels: prLabels
+                });
+            }
+            catch (error) {
+                core.error(error);
+            }
         }
         catch (error) {
+            core.error(error);
             core.setFailed(error.message);
         }
     });
