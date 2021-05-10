@@ -46,7 +46,6 @@ function getInputAsArray(name, options) {
         .filter(x => x !== "");
 }
 function run() {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         const token = core.getInput('repo-token');
         const sourceBranch = core.getInput('source-branch');
@@ -90,14 +89,12 @@ function run() {
                 core.error(error);
             }
             try {
-                yield client.issues.addLabels({
-                    owner: github.context.repo.owner,
-                    repo: github.context.repo.repo,
-                    issue_number: pullNumber,
-                    labels: (_a = prLabels.map((label) => ({
-                        name: label
-                    }))) !== null && _a !== void 0 ? _a : []
-                });
+                yield client.issues.addLabels(Object.assign({ owner: github.context.repo.owner, repo: github.context.repo.repo, issue_number: pullNumber }, (prLabels.length !== 0 &&
+                    {
+                        labels: prLabels.map((label) => ({
+                            name: label
+                        }))
+                    })));
             }
             catch (error) {
                 core.error(error);
