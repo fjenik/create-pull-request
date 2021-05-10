@@ -50,6 +50,7 @@ function run() {
         const prReviewers = parseListInput((_a = core.getInput('pr-reviewers')) !== null && _a !== void 0 ? _a : '');
         const prAssignees = parseListInput((_b = core.getInput('pr-assignees')) !== null && _b !== void 0 ? _b : '');
         const prLabels = parseListInput((_c = core.getInput('pr-labels')) !== null && _c !== void 0 ? _c : '');
+        console.log('index (17)', core.getInput('pr-reviewers')); // REMOVE
         const client = github.getOctokit(token);
         try {
             const pullRequest = yield client.pulls.create({
