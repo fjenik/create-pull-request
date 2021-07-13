@@ -36,6 +36,8 @@ async function run() {
 
     const pullNumber = pullRequest.data.number
 
+    core.setOutput('pull-id', pullNumber)
+
     try {
       await client.pulls.requestReviewers({
         owner: github.context.repo.owner,

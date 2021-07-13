@@ -15,6 +15,12 @@ A Github action to create pull request from source branch into the target branch
 | pr-assignees  | List of assignees     | null               | false    |
 | pr-labels     | List of labels        | null               | false    |
 
+### Action outputs
+
+| Name    | Description      |
+|---------|------------------|
+| pull-id | Id of created pr |
+
 ### Example
 
 ```

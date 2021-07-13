@@ -3,6 +3,9 @@ description: "Create pull request"
 author: "Filip Jenik"
 icon: "bookmark"
 color: "yellow"
+outputs:
+  pull-id:
+    description: "ID of created pr"
 inputs:
   repo-token:
     description: "The GITHUB_TOKEN secret"
