@@ -34,7 +34,7 @@ async function run() {
       body: prBody,
     })
 
-    console.log('index (37)', JSON.stringify(pullRequest)) // REMOVE
+    core.info(JSON.stringify(pullRequest))
 
     const pullNumber = pullRequest.data.number
 

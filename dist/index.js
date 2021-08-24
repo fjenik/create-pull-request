@@ -65,7 +65,7 @@ function run() {
                 title: prTitle,
                 body: prBody,
             });
-            console.log('index (37)', JSON.stringify(pullRequest)); // REMOVE
+            core.info(JSON.stringify(pullRequest));
             const pullNumber = pullRequest.data.number;
             core.setOutput('pull-id', pullNumber);
             try {
