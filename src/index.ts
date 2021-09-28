@@ -34,8 +34,6 @@ async function run() {
       body: prBody,
     })
 
-    core.info(JSON.stringify(pullRequest))
-
     const pullNumber = pullRequest.data.number
 
     core.setOutput('pull-id', pullNumber)

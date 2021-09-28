@@ -65,7 +65,6 @@ function run() {
                 title: prTitle,
                 body: prBody,
             });
-            core.info(JSON.stringify(pullRequest));
             const pullNumber = pullRequest.data.number;
             core.setOutput('pull-id', pullNumber);
             try {
